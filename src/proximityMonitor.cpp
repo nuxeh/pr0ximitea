@@ -147,7 +147,7 @@ bool ProximityMonitor::checkProximity() {
 
 void ProximityMonitor::updateBaseline(float reading, float threshold) {
   // Only update baseline when no object present and reading is below threshold
-  if (!objectPresent) {
+  if (!objectPresent && (reading < threshold)) {
     // EWMA baseline update
     float delta = reading - baseline;
     baseline += ewmaAlpha * delta;
