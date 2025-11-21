@@ -18,6 +18,18 @@
 #define DEFAULT_UPDATE_INTERVAL 50
 #define DEFAULT_DEBUG_INTERVAL 500
 
+#define BASELINE_LOCKOUT_MS 400
+#define BASELINE_STABLE_REQUIRED 5
+
+#ifndef MAD_WINDOW_SIZE
+ #define MAD_WINDOW_SIZE 31 // choose 15–61 depending on MCU
+#endif
+
+enum BaselineMode {
+    BASELINE_VARIANCE = 0,
+    BASELINE_MAD = 1
+};
+
 class ProximityMonitor {
 public:
   /**
@@ -59,6 +71,7 @@ public:
   void setUpdateInterval(unsigned long ms) { updateInterval = ms; }
   void setDebugInterval(unsigned long ms) { debugInterval = ms; }
   void enableDebug(bool enable) { debugEnabled = enable; }
+  void setBaselineMode(BaselineMode mode) { baselineMode = mode; }
   
   /**
    * Get current state
@@ -100,6 +113,22 @@ private:
   bool checkProximity();
   void printDebugInfo(bool readSuccess, float reading);
   void updateBaseline(float reading, float threshold);
+  float computeMADBaselineAndStd(float& outStd);
+
+  // Baseline update control
+  unsigned long baselineLockoutUntil;
+  int stableBaselineSamples;
+
+  // Hysteresis
+  float detectionSigmaOn = DEFAULT_DETECTION_SIGMA;
+  float detectionSigmaOff = DEFAULT_DETECTION_SIGMA * 0.66f; // e.g. 3.0 on, 2.0 off
+
+  BaselineMode baselineMode;
+
+  // MAD window
+  float madWindow[MAD_WINDOW_SIZE];
+  int madIndex;
+  bool madFilled;
 };
 
 #endif // PROXIMITY_MONITOR_H
