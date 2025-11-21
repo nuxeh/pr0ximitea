@@ -8,11 +8,15 @@
 #include "ProximitySensor.h"
 #include "ProximityMonitor.h"
 #include "APDS9930Sensor.h"
-// #include "VCNL4010Sensor.h"  // Alternative sensor
+// #include "VCNL4010Sensor.h"  // Alternative proximity sensor
+// #include "VL53L0XSensor.h"   // Time-of-Flight distance sensor
+// #include "VL53L1XSensor.h"   // Time-of-Flight distance sensor (longer range)
 
 // Choose your sensor implementation
 APDS9930Sensor sensor;
 // VCNL4010Sensor sensor;  // Swap to this line to use VCNL4010
+// VL53L0XSensor sensor(800);  // VL53L0X with 800mm max distance
+// VL53L1XSensor sensor(1200, VL53L1XSensor::Short);  // VL53L1X, 1200mm max, short mode
 
 // Create monitor with sensor and output pin
 #define SOLENOID_EN_PIN 2
@@ -137,4 +141,30 @@ void example_custom_tuning() {
   monitor.setMinDetectionDuration(500);  // 500ms
   
   monitor.begin();
+}
+
+// Example 5: VL53L0X for longer range detection
+void example_vl53l0x() {
+  // VL53L0XSensor sensor(1500);  // 1.5m max range
+  // ProximityMonitor monitor(&sensor, 2);
+  
+  // // Optional: Slower timing for better accuracy
+  // sensor.getSensor().setMeasurementTimingBudget(100000);  // 100ms
+  // sensor.startContinuous();
+  
+  // monitor.begin();
+}
+
+// Example 6: VL53L1X with long-range mode
+void example_vl53l1x() {
+  // VL53L1XSensor sensor(3000, VL53L1XSensor::Long);  // 3m max, long mode
+  // ProximityMonitor monitor(&sensor, 2);
+  
+  // monitor.begin();
+  
+  // // Check actual distance for debugging
+  // // In loop after monitor.update():
+  // // Serial.print("Distance: ");
+  // // Serial.print(sensor.getLastDistanceMM());
+  // // Serial.println("mm");
 }
