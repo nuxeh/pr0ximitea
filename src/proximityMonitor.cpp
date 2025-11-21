@@ -130,24 +130,24 @@ bool ProximityMonitor::checkProximity() {
   
   lastReading = proximityData;
   float reading = (float)proximityData;
-  
-  // Calculate current threshold using existing baseline/variance
+
+  // Update baseline
   float stdDev = sqrt(variance);
   float threshold = baseline + (detectionSigma * stdDev);
-  
-  // Update baseline if conditions are met
+
   updateBaseline(reading, threshold);
-  
-  // Recalculate threshold after potential baseline update
-  threshold = baseline + (detectionSigma * sqrt(variance));
-  
+
+  // Calculate final threshold after potential baseline update
+  stdDev = sqrt(variance);
+  threshold = baseline + (detectionSigma * stdDev);
+
   // Detection check
   return reading > threshold;
 }
 
 void ProximityMonitor::updateBaseline(float reading, float threshold) {
   // Only update baseline when no object present and reading is below threshold
-  if (!objectPresent && (reading < threshold)) {
+  if (!objectPresent) {
     // EWMA baseline update
     float delta = reading - baseline;
     baseline += ewmaAlpha * delta;
