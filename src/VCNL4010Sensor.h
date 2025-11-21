@@ -13,7 +13,7 @@
 #ifndef VCNL4010_SENSOR_H
 #define VCNL4010_SENSOR_H
 
-#include "ProximitySensor.h"
+#include "proximitySensor.h"
 #include <Adafruit_VCNL4010.h>
 
 class VCNL4010Sensor : public ProximitySensor {

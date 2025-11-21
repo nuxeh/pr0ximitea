@@ -1,5 +1,5 @@
 /**
- * ProximitySensor.h
+ * proximitySensor.h
  * 
  * Abstract base class for proximity sensors
  * Defines the interface that all sensor implementations must provide

@@ -1,5 +1,5 @@
 /**
- * ProximityMonitor.h
+ * proximityMonitor.h
  * 
  * Handles baseline tracking, debouncing, and detection logic
  * Works with any ProximitySensor implementation
@@ -9,7 +9,7 @@
 #define PROXIMITY_MONITOR_H
 
 #include <Arduino.h>
-#include "ProximitySensor.h"
+#include "proximitySensor.h"
 
 // Configuration defaults (can be overridden in constructor)
 #define DEFAULT_DETECTION_SIGMA 3.0f

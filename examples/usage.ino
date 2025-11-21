@@ -5,8 +5,8 @@
  * with different sensor implementations
  */
 
-#include "ProximitySensor.h"
-#include "ProximityMonitor.h"
+#include "proximitySensor.h"
+#include "proximityMonitor.h"
 #include "APDS9930Sensor.h"
 // #include "VCNL4010Sensor.h"  // Alternative proximity sensor
 // #include "VL53L0XSensor.h"   // Time-of-Flight distance sensor

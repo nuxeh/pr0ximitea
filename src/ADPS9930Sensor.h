@@ -12,7 +12,7 @@
 #ifndef APDS9930_SENSOR_H
 #define APDS9930_SENSOR_H
 
-#include "ProximitySensor.h"
+#include "proximitySensor.h"
 #include <APDS9930.h>
 
 class APDS9930Sensor : public ProximitySensor {

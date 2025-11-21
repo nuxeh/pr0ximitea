@@ -14,7 +14,7 @@
 #ifndef VL53L1X_SENSOR_H
 #define VL53L1X_SENSOR_H
 
-#include "ProximitySensor.h"
+#include "proximitySensor.h"
 #include <VL53L1X.h>
 
 class VL53L1XSensor : public ProximitySensor {
