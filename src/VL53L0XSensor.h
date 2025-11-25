@@ -113,4 +113,6 @@ private:
   uint16_t lastDistance;
 };
 
+#warning Using VL52L0X proximity sensor, ensure lib_deps includes pololu/VL53L0X
+
 #endif // VL53L0X_SENSOR_H
