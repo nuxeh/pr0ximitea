@@ -14,7 +14,7 @@ public:
      * @param controlPin The GPIO pin used to assert the dummy detection.
      * @param inverted If true, the pin must be LOW to assert detection.
      */
-    DummyProximitySensor(int controlPin, bool inverted = false)
+    DummySensor(int controlPin, bool inverted = false)
         : controlPin(controlPin)
         , inverted(inverted)
     {}
