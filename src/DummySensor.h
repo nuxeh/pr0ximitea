@@ -44,7 +44,7 @@ public:
         return true; 
     };
 
-    const char* getSensorName() override {
+    const char* getSensorName() const override {
         return "GPIO Dummy Sensor";
     }
 
