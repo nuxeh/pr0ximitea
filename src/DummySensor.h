@@ -7,7 +7,7 @@
 /**
  * A mock sensor for testing without sensor hardware, using a GPIO pin.
  */
-class DummyProximitySensor : public ProximitySensor {
+class DummySensor : public ProximitySensor {
 public:
     /**
      * Constructor for the GPIO-controlled dummy sensor.
