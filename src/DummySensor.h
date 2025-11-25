@@ -57,4 +57,6 @@ private:
     uint16_t detectedOffset = 500; // Value added when GPIO is asserted
 };
 
+#warning Using dummy proximity sensor controlled by GPIO
+
 #endif // DUMMY_PROXIMITY_SENSOR_H
