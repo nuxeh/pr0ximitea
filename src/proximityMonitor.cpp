@@ -6,6 +6,12 @@
 
 #include "proximityMonitor.h"
 
+#ifdef PROXIMITEA_PLOTMSG_DEBUG
+#include "plotMsg.hpp"
+
+PlotMsg::PlotMsg PlotMsgBuilder;
+#endif
+
 ProximityMonitor::ProximityMonitor(ProximitySensor* sensor, int outputPin)
   : sensor(sensor)
   , outputPin(outputPin)
@@ -198,6 +204,32 @@ void ProximityMonitor::updateBaseline(float reading, float threshold) {
     }
 }
 
+#ifdef PROXIMITEA_PLOTMSG_DEBUG
+#warning Pr0ximitea using plotMsg formatted debugging output
+void ProximityMonitor::printDebugInfo(bool readSuccess, float reading) {
+  if (!readSuccess) {
+    Serial.print(sensor->getSensorName());
+    Serial.println(" Read Failed! Check wiring/power.");
+    return;
+  }
+
+  float stdDev = sqrt(variance);
+  float threshold = baseline + (detectionSigma * stdDev);
+
+  Serial.print("[");
+  Serial.print(sensor->getSensorName());
+  Serial.print("] ");
+
+  PlotMsgBuilder.init();
+  PlotMsgBuilder.add("raw", sensor->getRaw());
+  PlotMsgBuilder.add("prox", reading);
+  PlotMsgBuilder.add("base", baseline);
+  PlotMsgBuilder.add("std", stdDev);
+  PlotMsgBuilder.add("thresh", threshold);
+  PlotMsgBuilder.add("detect", reading > threshold ? 1 : 0);
+  Serial.println(PlotMsgBuilder.get());
+}
+#else
 void ProximityMonitor::printDebugInfo(bool readSuccess, float reading) {
   if (!readSuccess) {
     Serial.print(sensor->getSensorName());
@@ -221,6 +253,7 @@ void ProximityMonitor::printDebugInfo(bool readSuccess, float reading) {
   Serial.print(" | Detected: ");
   Serial.println(reading > threshold ? "YES" : "NO");
 }
+#endif
 
 void ProximityMonitor::setDetectionCallback(DetectionCallback callback) {
   this->callback = callback;

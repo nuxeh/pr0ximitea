@@ -111,7 +111,7 @@ public:
    * Get the last measured distance in mm (before inversion)
    * Useful for debugging - call after readProximity()
    */
-  uint16_t getLastDistanceMM() const { return lastDistance; }
+  uint16_t getRaw() const { return lastDistance; }
   
   /**
    * Get current distance mode

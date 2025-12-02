@@ -26,6 +26,8 @@ public:
    * @return true on successful read, false on error
    */
   virtual bool readProximity(uint16_t& value) = 0;
+
+  virtual void getRaw() = 0;
   
   /**
    * Get sensor name for debugging

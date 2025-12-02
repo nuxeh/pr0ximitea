@@ -29,8 +29,13 @@ public:
   }
   
   bool readProximity(uint16_t& value) override {
-    return apds.readProximity(value);
+    ret = apds.readProximity(lastValue);
+    value = lastValue;
+    read = true;
+    return ret;
   }
+
+  uint16_t getRaw() const { return read?lastValue:0; }
   
   const char* getSensorName() const override {
     return "APDS-9930";
@@ -38,6 +43,8 @@ public:
   
 private:
   APDS9930 apds;
+  uint16_t lastValue;
+  bool read = false;
 };
 
 #endif // APDS9930_SENSOR_H

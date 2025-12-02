@@ -25,11 +25,14 @@ public:
   }
   
   bool readProximity(uint16_t& value) override {
-    value = vcnl.readProximity();
+    lastValue = vcnl.readProximity();
+    value = lastValue;
     // VCNL4010 returns 0 on error, but this is also a valid reading
     // In practice, you might want additional error checking
     return true;
   }
+
+  uint16_t getRaw() const { return read?lastValue:0; }
   
   const char* getSensorName() const override {
     return "VCNL4010";
@@ -37,6 +40,8 @@ public:
   
 private:
   Adafruit_VCNL4010 vcnl;
+  uint16_t lastValue;
+  bool read = false;
 };
 
 #endif // VCNL4010_SENSOR_H
