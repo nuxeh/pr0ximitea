@@ -27,7 +27,7 @@ public:
    */
   virtual bool readProximity(uint16_t& value) = 0;
 
-  virtual void getRaw() = 0;
+  virtual void getRaw() const = 0;
   
   /**
    * Get sensor name for debugging
