@@ -49,7 +49,7 @@ public:
         return true; 
     };
 
-    uint16_t getRaw() const { return lastValue; }
+    uint16_t getRaw() const override { return lastValue; }
 
     const char* getSensorName() const override {
         return "GPIO Dummy Sensor";

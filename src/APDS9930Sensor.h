@@ -35,7 +35,7 @@ public:
     return ret;
   }
 
-  uint16_t getRaw() const { return read?lastValue:0; }
+  uint16_t getRaw() const override { return read?lastValue:0; }
   
   const char* getSensorName() const override {
     return "APDS-9930";

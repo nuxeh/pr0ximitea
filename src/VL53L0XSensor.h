@@ -86,7 +86,7 @@ public:
    * Get the last measured distance in mm (before inversion)
    * Useful for debugging - call after readProximity()
    */
-  uint16_t getRaw() const { return lastDistance; }
+  uint16_t getRaw() const override { return lastDistance; }
   
   /**
    * Stop continuous mode (call before changing settings)
