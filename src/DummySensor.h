@@ -17,6 +17,9 @@ public:
     DummySensor(int controlPin, bool inverted = false)
         : controlPin(controlPin)
         , inverted(inverted)
+        , baseValue(500)
+        , detectedOffset(500)
+        , lastValue(0)
     {}
 
     bool init() override {
@@ -40,9 +43,13 @@ public:
         if (isAsserted) {
             outData += detectedOffset;
         }
+
+	lastValue = outData;
         
         return true; 
     };
+
+    uint16_t getRaw() const { return lastValue; }
 
     const char* getSensorName() const override {
         return "GPIO Dummy Sensor";
@@ -53,8 +60,9 @@ private:
     bool inverted;
     
     // Internal state for simulation
-    uint16_t baseValue = 500;
-    uint16_t detectedOffset = 500; // Value added when GPIO is asserted
+    uint16_t baseValue;
+    uint16_t detectedOffset; // Value added when GPIO is asserted
+    uint16_t lastValue;
 };
 
 #warning Using dummy proximity sensor controlled by GPIO
